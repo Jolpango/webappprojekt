@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import RoundButton from './components/Buttons/RoundButton';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
+      <RoundButton onPress={() => {}}><Text>Test</Text></RoundButton>
       <StatusBar style="auto" />
     </View>
   );
