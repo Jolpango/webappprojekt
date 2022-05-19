@@ -1,0 +1,12 @@
+{
+    "eBird_key": "gdjbnupq090p",
+    "eBird_url": "https://api.ebird.org/v2/",
+    "auth_key": "",
+    "auth_url": "",
+    "storage_key": "",
+    "storage_url": "",
+    "geo_key": "9da5385093161d8f509ee2b16891c6d8",
+    "geo_url": "http://api.positionstack.com/v1/",
+    "flickr_key": "6d6cbf10e724434e7d708d8c2e8e4683",
+    "flickr_url": "https://www.flickr.com/services/rest/"
+}

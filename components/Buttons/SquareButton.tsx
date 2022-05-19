@@ -7,7 +7,7 @@ interface props {
   onPress: (event: GestureResponderEvent) => void
 }
 
-export default function RoundButton(props: props) {
+export default function SquareButton(props: props) {
   return (
     <TouchableOpacity
       style={styles.button}
@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: Color.tangerine,
     color: Color.orange,
-    padding: 10,
-    borderRadius: 100
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    borderRadius: 5
   }
 });
