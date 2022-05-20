@@ -1,3 +1,4 @@
 import * as Color from "./color";
+import * as Typography from "./typography";
 
-export { Color };
+export { Color, Typography };

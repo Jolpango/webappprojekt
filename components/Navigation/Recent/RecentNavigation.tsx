@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 export default function RecentNavigation({states}: props) {
   return (
     <Stack.Navigator
-      screenOptions={{headerShown: false}}
+      screenOptions={{headerTransparent: true, headerTitle: ""}}
     >
       <Stack.Screen name="List">
         {(screenProps) => <RecentList route={screenProps.route} navigation={screenProps.navigation} states={states} ></RecentList> }

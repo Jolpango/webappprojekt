@@ -66,7 +66,7 @@ export default function App() {
             tabBarStyle: styles.tabBar,
             headerStyle: styles.header,
             headerTitleStyle: {color:Color.white},
-            headerLeft: () => <Ionicons style={{paddingLeft: 10, alignSelf: "center"}} name="bird" size={20} color={Color.white} />
+            headerShown: false
           })}
           >
             <Tab.Screen name="Checklist" children={() => <CheckListNavigation states={states}/>} />
@@ -75,14 +75,14 @@ export default function App() {
           <LoginScreen states={states} />
         }
       </NavigationContainer>
-      <StatusBar style="auto" backgroundColor={Color.tangerine}/>
+      <StatusBar style="auto"/>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
     // backgroundColor: '#fff',
     // alignItems: 'center',
     // justifyContent: 'center',
