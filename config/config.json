@@ -1,8 +1,8 @@
 {
     "eBird_key": "gdjbnupq090p",
     "eBird_url": "https://api.ebird.org/v2/",
-    "auth_key": "",
-    "auth_url": "",
+    "auth_key": "0d0cd647c2206871f75e760af18aac13",
+    "auth_url": "https://auth.emilfolino.se/",
     "storage_key": "",
     "storage_url": "",
     "geo_key": "9da5385093161d8f509ee2b16891c6d8",

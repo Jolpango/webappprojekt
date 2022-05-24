@@ -53,10 +53,11 @@ export default function SightingListItem({sighting, onPress}: props) {
       >
         {thumbnail ?
           <Image style={styles.thumbnail} source={{uri: thumbnail}}/> :
-          <Image style={styles.thumbnail}source={require("../../../assets/831.gif")}/>
+          <Image style={styles.thumbnail} source={require("../../../assets/831.gif")}/>
         }
         <View style={styles.textContainer}>
           <Text style={styles.title}>{sighting.comName}</Text>
+          <Text style={styles.location}>{sighting.obsDt}</Text>
           <Text>{sighting.locName}</Text>
         </View>
       </View>
@@ -72,7 +73,11 @@ const styles = StyleSheet.create({
   },
   title: {
     ...Typography.subHeading,
-    marginBottom: 10
+    marginBottom: 5
+  },
+  location: {
+    ...Typography.small,
+    marginBottom: 5
   },
   outer: {
     flex: 1,

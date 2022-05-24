@@ -1,9 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Color } from './style';
-import LoginScreen from './components/Navigation/LoginScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import CheckListNavigation from './components/Navigation/CheckList/CheckListNavigation';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,6 +12,10 @@ import eBirdModel from './model/eBirdModel';
 import Sighting from './interface/sighting';
 import AppUseState from './interface/state';
 import * as Location from 'expo-location';
+import LoginNavigation from './components/Navigation/Login/LoginNavigation';
+import FlashMessage from 'react-native-flash-message';
+import authModel from './model/authModel';
+import UserNavigation from './components/Navigation/User/UserNavigation';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,12 +42,15 @@ export default function App() {
   }
   useEffect(() => {
     (async () => {
+      setIsLoggedIn(await authModel.isLoggedIn());
+    })();
+    (async () => {
       setBirds(await eBirdModel.getSwedishBirds());
     })();
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-          return;
+        return;
       }
       const currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation);
@@ -71,11 +77,13 @@ export default function App() {
           >
             <Tab.Screen name="Checklist" children={() => <CheckListNavigation states={states}/>} />
             <Tab.Screen name="Recent" children={() => <RecentNavigation states={states}/>} />
+            <Tab.Screen name="User" children={() => <UserNavigation states={states}/>} />
           </Tab.Navigator> :
-          <LoginScreen states={states} />
+          <LoginNavigation states={states} />
         }
       </NavigationContainer>
       <StatusBar style="auto"/>
+      <FlashMessage position="top" />
     </SafeAreaView>
   );
 }

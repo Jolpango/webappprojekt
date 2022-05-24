@@ -33,13 +33,6 @@ export default function RecentList({route, navigation, states}: props) {
       identifier={"me"}
       title={"Me"}
     />);
-    const region = {
-      latitude: states.location?.coords.latitude ?? 0,
-      longitude: states.location?.coords.longitude ?? 0,
-      latitudeDelta: 0.1,
-      longitudeDelta: 0.1,
-    }
-    mapRef.current.animateToRegion(region);
   }, [states.location])
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
@@ -54,7 +47,7 @@ export default function RecentList({route, navigation, states}: props) {
   }, []);
   useEffect(() => {
     const idList = states.nearbySightings.map((sighting) => sightingId(sighting));
-    mapRef.current.fitToSuppliedMarkers([...idList, "me"])
+    setTimeout(() => mapRef.current.fitToSuppliedMarkers([...idList, "me"]), 500);
   } ,[states.nearbySightings])
   const birdTexts = states.nearbySightings.map((sighting: Sighting, index: number) => {
     return (
