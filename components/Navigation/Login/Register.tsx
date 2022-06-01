@@ -16,7 +16,16 @@ interface props {
 export default function Register({navigation, route, states}: props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const submit = async () => {
+    if (confirmPassword !== password) {
+      showMessage({
+        message: "Password",
+        description: "Password does not match",
+        type: "danger"
+      })
+      return
+    }
     const res = await authModel.register(email, password);
     if (res.type === "success") {
       navigation.navigate("Login");
@@ -40,6 +49,7 @@ export default function Register({navigation, route, states}: props) {
           }}
           style={styles.textInput}
           keyboardType={"email-address"}
+          value={email}
         />
       </View>
       <View style={styles.inputContainer}>
@@ -50,16 +60,18 @@ export default function Register({navigation, route, states}: props) {
           }}
           style={styles.textInput}
           secureTextEntry={true}
+          value={password}
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text>Password</Text>
+        <Text>Confirm password</Text>
         <TextInput
           onChangeText={(text) => {
-            setPassword(text);
+            setConfirmPassword(text);
           }}
           style={styles.textInput}
           secureTextEntry={true}
+          value={confirmPassword}
         />
       </View>
       <SquareButton

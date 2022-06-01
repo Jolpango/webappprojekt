@@ -14,7 +14,7 @@ const eBirdModel = {
     const codeResponse = await fetch(`${config.eBird_url}product/spplist/SE`, requestOptions as any);
     const codeResult = await codeResponse.json();
     const species = codeResult.join(",");
-    const response = await fetch(`${config.eBird_url}ref/taxonomy/ebird?species=${species}&locale=sv&fmt=json`, requestOptions as any);
+    const response = await fetch(`${config.eBird_url}ref/taxonomy/ebird?species=${species}&locale=en&fmt=json`, requestOptions as any);
     const result = response.json();
     return result;
   },

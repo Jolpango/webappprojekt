@@ -16,19 +16,24 @@ import LoginNavigation from './components/Navigation/Login/LoginNavigation';
 import FlashMessage from 'react-native-flash-message';
 import authModel from './model/authModel';
 import UserNavigation from './components/Navigation/User/UserNavigation';
+import ChecklistItemInterface from './interface/checklistiteminterface';
+import storageModel from './model/storageModel';
 
 const Tab = createBottomTabNavigator();
 
 const navigationIcons: any = {
-  "Checklist": "list",
-  "Recent": "time"
+  "Your checklist": "list",
+  "Nearby you": "map",
+  "User": "person"
 }
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [location, setLocation] = useState<Location.LocationObject>();
   const [birds, setBirds] = useState<Bird[]>([]);
+  const [checklist, setChecklist] = useState<ChecklistItemInterface[]>([]);
   const [nearbySightings, setNearbySightings] = useState<Sighting[]>([]);
+  const [email, setEmail] = useState(""); 
   // Put all states in here, why the fuck not
   const states: AppUseState = {
     isLoggedIn: isLoggedIn,
@@ -38,7 +43,11 @@ export default function App() {
     nearbySightings: nearbySightings,
     setNearbySightings: setNearbySightings,
     location: location,
-    setLocation: setLocation
+    setLocation: setLocation,
+    checklist: checklist,
+    setChecklist: setChecklist,
+    email: email,
+    setEmail: setEmail
   }
   useEffect(() => {
     (async () => {
@@ -56,7 +65,16 @@ export default function App() {
       setLocation(currentLocation);
       setNearbySightings(await eBirdModel.getNearbySightings(currentLocation.coords.latitude, currentLocation.coords.longitude));
   })();
-  }, [])
+  }, []);
+  useEffect(() => {
+    (async () => {
+      if (isLoggedIn) {
+        states.setChecklist(await authModel.getChecklist());
+        const token = await storageModel.readToken();
+        states.setEmail(token.email);
+      }
+    })();
+  }, [states.isLoggedIn])
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
@@ -75,8 +93,8 @@ export default function App() {
             headerShown: false
           })}
           >
-            <Tab.Screen name="Checklist" children={() => <CheckListNavigation states={states}/>} />
-            <Tab.Screen name="Recent" children={() => <RecentNavigation states={states}/>} />
+            <Tab.Screen name="Your checklist" children={() => <CheckListNavigation states={states}/>} />
+            <Tab.Screen name="Nearby you" children={() => <RecentNavigation states={states}/>} />
             <Tab.Screen name="User" children={() => <UserNavigation states={states}/>} />
           </Tab.Navigator> :
           <LoginNavigation states={states} />

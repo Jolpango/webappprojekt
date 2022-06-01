@@ -1,11 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const storageModel = {
-    storeToken: async function storeToken(token: string) {
+    storeToken: async function storeToken(token: string, email: string) {
         try {
             const tokenAndDate = {
                 token: token,
                 date: new Date().getTime(),
+                email: email
             };
             const jsonValue = JSON.stringify(tokenAndDate);
 
